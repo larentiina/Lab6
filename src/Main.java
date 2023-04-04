@@ -13,8 +13,10 @@ import java.io.IOException;
 import static utilities.ParserXml.convertToHt;
 
 public class Main {
-    public static void main(String[] args) throws IOException, NoSuchCommandException, ScriptException {
+    public static void main(String[] args) throws IOException, NoSuchCommandException, ScriptException, IllegalValueException {
         try {
+
+
             File file = new File(System.getenv().get("FILE_NAME"));
             PersonCollection persons = new PersonCollection();
             persons.setCollection(convertToHt(file).getPersons());
@@ -22,15 +24,14 @@ public class Main {
             CommandManager commandManager = new CommandManager(persons, inputManager);
             Console console = new Console(inputManager, commandManager);
             console.start();
+
+
         }
         catch (JAXBException | IllegalArgumentException e){
             System.out.println(e.getMessage());
             System.out.println("Приложение не может запуститься");
-        } catch (IllegalValueException e)
-        {
-            System.out.println("Файл содержит неккоректные входные данные: " + e.getMessage());
-            System.out.println("Приложение не может запуститься");
         }
     }
+
 }
 

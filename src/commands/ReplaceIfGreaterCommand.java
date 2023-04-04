@@ -9,7 +9,7 @@ import utilities.PersonCollection;
 import utilities.PersonMaker;
 
 /**
- * команда replace_if_greater_command
+ * replace_if_greater_command
  */
 public class ReplaceIfGreaterCommand extends Command{
     private final PersonCollection collection;

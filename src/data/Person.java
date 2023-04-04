@@ -86,7 +86,7 @@ public class Person implements Comparable<Person> {
     public void setName(String name) throws IllegalValueException {
         if(name!=null && name.matches("([A-Z]|[А-Я])([a-z]|[а-я])+"))
         this.name = name;
-        else throw new IllegalValueException("Имя не может быть null, должно начинаться с заглавной буквы и содержать только буквы");
+        else throw new IllegalValueException("имя не может быть null, должно начинаться с заглавной буквы и содержать только буквы, содержать больше одной буквы");
     }
     @XmlTransient
     public Coordinates getCoordinates() {

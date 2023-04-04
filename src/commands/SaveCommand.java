@@ -6,7 +6,6 @@ import utilities.ParserXml;
 import utilities.PersonCollection;
 
 import javax.xml.bind.JAXBException;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -28,14 +27,12 @@ public class SaveCommand extends Command{
      * @throws IllegalArgsException if arguments is not empty
      */
     @Override
-    public void execute() throws JAXBException, IOException, IllegalArgsException, FileNotFoundException {
-        try {
-            if(inputManager.getArguments().length==0) {
-                ParserXml.convertToXml(collection, System.getenv().get("FILE_NAME"));
-            }else throw new IllegalArgsException("У команды save нет аргументов");
-        }catch(FileNotFoundException e){
-            System.out.println("Файл для сохранения не найден");
+    public void execute() throws JAXBException, IOException, IllegalArgsException {
+        if(inputManager.getArguments().length==0) {
+            ParserXml.convertToXml(collection, System.getenv().get("FILE_NAME"));
+
         }
+        else throw new IllegalArgsException("У команды save нет аргументов");
 
     }
 

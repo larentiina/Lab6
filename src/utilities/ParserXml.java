@@ -27,9 +27,10 @@ public class ParserXml {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             return (PersonCollection) unmarshaller.unmarshal(file);
         } catch (JAXBException e){
-            throw new JAXBException("Возникла ошибка при конвертации коллекции из xml-файла");
+            System.out.println("Не получилось корректно конвертировать данные из xml. Коллекция будет пустой");
+           return new PersonCollection();
         } catch (IllegalArgumentException e){
-            throw new IllegalArgumentException("Указанный файл в переменной окружения не найден");
+            throw new IllegalArgumentException("Указанный файл в переменной окружения не найден или не может быть прочитан");
         } catch (NullPointerException e){
             throw new IllegalValueException("Коллекция содержит неполные данные");
         }
@@ -39,10 +40,8 @@ public class ParserXml {
      * converts the person collection to the xml file
      * @param personCollection
      * @param filename
-     * @throws JAXBException
-     * @throws IOException
      */
-    public static void convertToXml(PersonCollection personCollection, String filename) throws JAXBException, IOException {
+    public static void convertToXml(PersonCollection personCollection, String filename) throws IOException {
         try {
             JAXBContext jaxbContext = JAXBContext.newInstance(PersonCollection.class);
             Marshaller marshaller = jaxbContext.createMarshaller();
@@ -51,7 +50,7 @@ public class ParserXml {
             FileWriter fileWriter = new FileWriter(filename);
             marshaller.marshal(personCollection, fileWriter);
             fileWriter.close();
-        }catch(JAXBException|IOException e){
+        }catch(JAXBException e){
             System.out.println("Возникла ошибка при конвертации в Xml файл");
         }
 

@@ -8,9 +8,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Hashtable;
+import java.util.*;
 
 /**
  * class that manages a collection of people
@@ -122,6 +120,7 @@ public class PersonCollection {
      * @throws IllegalValueException
      */
     public void setCollection(Hashtable<Integer, Person> collection) throws IllegalValueException {
+        try {
             for (Person person : collection.values()) {
                 person.setName(person.getName());
                 person.setPassportID(person.getPassportID());
@@ -129,8 +128,19 @@ public class PersonCollection {
                 person.setLocation(person.getLocation());
                 person.setHeight(person.getHeight());
             }
-                this.collection = collection;
+            this.collection = collection;
+            if (!this.checkUniqPassportId())
+                throw new IllegalValueException("Пароли у объектов не уникальны");
+        }catch (IllegalValueException e){
+            System.out.println(e.getMessage());
+            System.out.println("Файл содержит некорректные данные. Коллекция будет пустой");
+            this.collection = new Hashtable<>();
+        }
 
+    }
+    public boolean checkUniqPassportId(){
+        Set<String> set = new HashSet<>(this.AllPassportId());
+        return set.size() >= this.AllPassportId().size();
 
     }
 }
